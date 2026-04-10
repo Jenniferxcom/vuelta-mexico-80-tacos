@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Un español con 2 millones de seguidores propone el proyecto gastronómico más grande del Mundial 2026.">
+<meta property="og:title" content="La Vuelta a México en 80 Tacos">
+<meta property="og:description" content="Un español con 2 millones de seguidores propone el proyecto gastronómico más grande del Mundial 2026.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vuelta-mexico-80-tacos.vercel.app">
+<meta property="og:image" content="https://vuelta-mexico-80-tacos.vercel.app/abrazo.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="La Vuelta a México en 80 Tacos">
+<meta name="twitter:description" content="Un español con 2 millones de seguidores propone el proyecto gastronómico más grande del Mundial 2026.">
+<title>La Vuelta a México en 80 Tacos</title>
+
+<style>
+/* ══════════════════════════════════════════
+   TOKENS — Apple minimal
+   ══════════════════════════════════════════ */
+:root {
+    --bg: #ffffff;
+    --bg-alt: #f5f5f7;
+    --text: #1d1d1f;
+    --text-secondary: #6e6e73;
+    --text-tertiary: #86868b;
+    --line: rgba(0, 0, 0, 0.08);
+    --link: #06c;
+
+    --font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ══════════════════════════════════════════
+   RESET
+   ══════════════════════════════════════════ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.65;
+    overflow-x: hidden;
+}
+
+::selection {
+    background: var(--text);
+    color: var(--bg);
+}
+
+/* ══════════════════════════════════════════
+   LAYOUT
+   ══════════════════════════════════════════ */
+.container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 clamp(1.5rem, 5vw, 3rem);
+}
+
+section {
+    padding: clamp(7rem, 18vh, 14rem) 0;
+}
+
+/* ══════════════════════════════════════════
+   TYPOGRAPHY
+   ══════════════════════════════════════════ */
+.hero-title {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    max-width: 16ch;
+}
+
+.section-title {
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    overflow-wrap: break-word;
+}
+
+.section-subtitle {
+    font-size: clamp(1.4rem, 2.5vw, 2rem);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+}
+
+.body-text {
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    font-weight: 400;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 54ch;
+}
+
+.label {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+}
+
+.number-xl {
+    font-size: clamp(5rem, 14vw, 11rem);
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+}
+
+.number-large {
+    font-size: clamp(4rem, 12vw, 9rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+}
+
+.number-medium {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.03em;
+}
+
+.quote {
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 400;
+    line-height: 1.35;
+    letter-spacing: -0.01em;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+/* ══════════════════════════════════════════
+   REVEAL
+   ══════════════════════════════════════════ */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 700ms var(--ease-out),
+                transform 700ms var(--ease-out);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ══════════════════════════════════════════
+   HERO
+   ══════════════════════════════════════════ */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: var(--bg);
+    overflow: hidden;
+}
+
+.hero__video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 1.5s var(--ease);
+    z-index: 0;
+}
+
+.hero__video.is-loaded {
+    opacity: 0.08;
+}
+
+.hero__content {
+    position: relative;
+    z-index: 1;
+    padding: 4rem 0;
+}
+
+@media (max-width: 680px) {
+    .hero {
+        min-height: auto;
+        padding: clamp(6rem, 14vh, 10rem) 0 clamp(4rem, 8vh, 6rem);
+    }
+}
+
+.hero__label {
+    margin-bottom: 2rem;
+}
+
+.hero__title {
+    margin-bottom: 2.5rem;
+}
+
+.hero__sub {
+    max-width: 44ch;
+}
+
+/* ══════════════════════════════════════════
+   DIVIDER
+   ══════════════════════════════════════════ */
+.divider {
+    width: 100%;
+    height: 1px;
+    background: var(--line);
+}
+
+/* ══════════════════════════════════════════
+   BRIDGE — Zeigarnik tension between sections
+   ══════════════════════════════════════════ */
+.bridge {
+    padding: clamp(2rem, 4vh, 3rem) 0;
+    text-align: center;
+}
+
+.bridge__text {
+    font-size: clamp(1rem, 1.3vw, 1.1rem);
+    font-weight: 400;
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+/* ══════════════════════════════════════════
+   COUNTER SECTION
+   ══════════════════════════════════════════ */
+.counter-section {
+    text-align: center;
+    padding: clamp(6rem, 16vh, 12rem) 0;
+}
+
+.counter-section .label {
+    margin-bottom: 1rem;
+}
+
+.counter-section .body-text {
+    margin: 0 auto;
+    max-width: 38ch;
+    text-align: center;
+}
+
+/* ══════════════════════════════════════════
+   FULL-WIDTH ACCENT (pattern break)
+   ══════════════════════════════════════════ */
+.section--alt {
+    background: var(--bg-alt);
+}
+
+/* ══════════════════════════════════════════
+   TWO COLUMN
+   ══════════════════════════════════════════ */
+.two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(3rem, 6vw, 6rem);
+    align-items: start;
+}
+
+@media (max-width: 680px) {
+    .two-col {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* ══════════════════════════════════════════
+   PHOTO MOMENT — full-width pattern break
+   ══════════════════════════════════════════ */
+.photo-moment {
+    width: 100%;
+    height: clamp(300px, 50vh, 500px);
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-moment__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 30%;
+    filter: grayscale(0.15);
+}
+
+.photo-moment__caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem clamp(1.5rem, 5vw, 3rem);
+    background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+}
+
+/* ══════════════════════════════════════════
+   FEATURED STORY (pattern break)
+   ══════════════════════════════════════════ */
+.story-featured {
+    padding: clamp(3rem, 6vw, 5rem);
+    background: var(--bg-alt);
+    border-radius: 4px;
+    margin-bottom: clamp(3rem, 6vh, 5rem);
+    position: relative;
+    overflow: hidden;
+}
+
+.story-featured__photo {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+    object-position: center 20%;
+    border-radius: 2px;
+    margin-bottom: 2rem;
+    filter: grayscale(0.1);
+}
+
+.story-featured__number {
+    font-size: clamp(5rem, 12vw, 8rem);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: rgba(0, 0, 0, 0.06);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+}
+
+.story-featured__name {
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+}
+
+.story-featured__location {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 1.5rem;
+}
+
+.story-featured__text {
+    font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 56ch;
+}
+
+.story-featured__stat {
+    margin-top: 2rem;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+}
+
+/* Story compact list */
+.story-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.story-compact {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+}
+
+.story-compact__number {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+}
+
+.story-compact__name {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+
+.story-compact__detail {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+/* ══════════════════════════════════════════
+   STEPS
+   ══════════════════════════════════════════ */
+.steps {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(4rem, 8vh, 7rem);
+}
+
+.step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    align-items: baseline;
+}
+
+.step__number {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--text-tertiary);
+    line-height: 1;
+}
+
+.step__title {
+    font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.75rem;
+}
+
+.step__role {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-tertiary);
+    margin-bottom: 1rem;
+}
+
+.step__desc {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    max-width: 50ch;
+}
+
+@media (max-width: 680px) {
+    .step {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+
+/* ══════════════════════════════════════════
+   DATA GRID
+   ══════════════════════════════════════════ */
+.data-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--line);
+}
+
+.data-cell {
+    padding: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.5rem);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+.data-cell:last-child {
+    border-right: none;
+}
+
+.data-cell .label {
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 680px) {
+    .data-row {
+        grid-template-columns: 1fr 1fr;
+    }
+    .data-cell:nth-child(2) {
+        border-right: none;
+    }
+}
+
+/* ══════════════════════════════════════════
+   TIMELINE
+   ══════════════════════════════════════════ */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.timeline-item {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+}
+
+.timeline-item__date {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-tertiary);
+    white-space: nowrap;
+}
+
+.timeline-item__text {
+    font-size: 1rem;
+    color: var(--text);
+    font-weight: 400;
+}
+
+@media (max-width: 680px) {
+    .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 0.25rem;
+    }
+}
+
+/* ══════════════════════════════════════════
+   MICRO CTA
+   ══════════════════════════════════════════ */
+.micro-cta {
+    padding: clamp(3rem, 6vh, 5rem) 0;
+    text-align: center;
+}
+
+.micro-cta__text {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.micro-cta__link {
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--link);
+    text-decoration: none;
+    transition: opacity 200ms var(--ease);
+}
+
+.micro-cta__link:hover {
+    opacity: 0.7;
+}
+
+.micro-cta__link::after {
+    content: ' →';
+}
+
+/* ══════════════════════════════════════════
+   CTA FINAL
+   ══════════════════════════════════════════ */
+.cta-section {
+    text-align: center;
+    padding: clamp(8rem, 18vh, 14rem) 0;
+}
+
+.cta-link {
+    display: inline-block;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--link);
+    text-decoration: none;
+    transition: opacity 200ms var(--ease);
+}
+
+.cta-link:hover {
+    opacity: 0.7;
+}
+
+.cta-link::after {
+    content: ' →';
+}
+
+/* ══════════════════════════════════════════
+   VIDEO ACCORDION
+   ══════════════════════════════════════════ */
+.video-toggle {
+    display: inline-block;
+    margin-top: 1.25rem;
+    font-family: var(--font);
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--link);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 200ms var(--ease);
+}
+
+.video-toggle:hover {
+    opacity: 0.7;
+}
+
+/* Video modal overlay */
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 300ms var(--ease);
+    cursor: pointer;
+}
+
+.video-modal.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.video-modal__frame {
+    width: 90vw;
+    max-width: 360px;
+    aspect-ratio: 9 / 16;
+    border: none;
+    border-radius: 8px;
+    background: #000;
+    transform: scale(0.95);
+    transition: transform 300ms var(--ease-out);
+}
+
+.video-modal.is-open .video-modal__frame {
+    transform: scale(1);
+}
+
+.video-modal__close {
+    position: absolute;
+    top: clamp(1rem, 3vh, 2rem);
+    right: clamp(1rem, 3vw, 2rem);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 200ms var(--ease);
+}
+
+.video-modal__close:hover {
+    color: #fff;
+}
+
+/* ══════════════════════════════════════════
+   FINALE VIDEO
+   ══════════════════════════════════════════ */
+.finale {
+    text-align: center;
+    padding: clamp(6rem, 14vh, 10rem) 0;
+}
+
+.finale__video {
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 9 / 16;
+    border: none;
+    border-radius: 4px;
+    margin: 0 auto clamp(3rem, 6vh, 5rem);
+    display: block;
+    background: var(--bg-alt);
+}
+
+.finale__cta {
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.025em;
+    margin-bottom: 0.75rem;
+}
+
+.finale__sub {
+    font-size: clamp(1.1rem, 1.6vw, 1.3rem);
+    font-weight: 400;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* ══════════════════════════════════════════
+   FOOTER
+   ══════════════════════════════════════════ */
+footer {
+    padding: 3rem 0;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    border-top: 1px solid var(--line);
+}
+
+/* ══════════════════════════════════════════
+   ACCESSIBILITY
+   ══════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .hero__video {
+        opacity: 0.06 !important;
+        transition: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════ 1. HERO ═══════════════ -->
+<section class="hero">
+    <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto">
+        <source src="mexico-magico.mp4" type="video/mp4">
+    </video>
+    <div class="container">
+        <div class="hero__content">
+            <p class="label hero__label reveal">La Vuelta a México en 80 Tacos</p>
+            <h1 class="hero-title hero__title reveal">Dos millones de mexicanos le confían a un "español" dónde comer mañana.</h1>
+            <p class="body-text hero__sub reveal">Esta es la historia de cómo pasó. Y la propuesta de qué hacemos con eso.</p>
+            <p class="reveal" style="margin-top: 3rem; font-size: 14px; font-style: italic; color: var(--text-tertiary); max-width: 44ch;">México es el único país del mundo donde, sin haber nacido ahí, puedes pertenecer. Por eso las comillas.</p>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ 2. COUNTER ═══════════════ -->
+<section class="counter-section">
+    <div class="container">
+        <p class="label reveal">En tres años</p>
+        <div class="number-xl reveal" data-counter="2100000" data-format="commas" style="margin: 1rem 0;">0</div>
+        <p class="label reveal" style="margin-bottom: 2rem;">personas que se quedaron</p>
+        <p class="body-text reveal">Sin plan. Sin guion. Sin más estrategia que la honestidad. A un ritmo de 500 personas al día.</p>
+    </div>
+</section>
+
+<!-- ═══════════════ BRIDGE ═══════════════ -->
+<div class="divider"></div>
+<div class="bridge reveal"><p class="bridge__text">¿Por qué se quedaron?</p></div>
+<div class="divider"></div>
+
+<!-- ═══════════════ 3. EL FILTRO ═══════════════ -->
+<section>
+    <div class="container">
+        <div class="two-col">
+            <div>
+                <p class="label reveal" style="margin-bottom: 2rem;">El filtro</p>
+                <p class="quote reveal">"Cuando yo sea abuelito, ¿qué historias les contaré a mis nietos?"</p>
+            </div>
+            <div>
+                <p class="body-text reveal">No filmo las mejores taquerías de México.</p>
+                <p class="body-text reveal" style="margin-top: 1rem;">Filmo las historias que le contaré a mis nietos.</p>
+                <p class="body-text reveal" style="margin-top: 1rem; color: var(--text); font-weight: 500;">Es distinto.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ 4. LAS DOS MONEDAS ═══════════════ -->
+<section>
+    <div class="container">
+        <p class="label reveal" style="margin-bottom: 2rem;">Lo que descubrimos</p>
+        <h2 class="section-title reveal" style="margin-bottom: clamp(4rem, 8vh, 6rem); font-size: clamp(1.8rem, 4vw, 3rem);">Hay dos cosas más valiosas que el dinero.</h2>
+
+        <div class="two-col">
+            <div class="reveal">
+                <p class="section-subtitle" style="margin-bottom: 1rem;">Asociación</p>
+                <p class="body-text">Cuando conoces la historia detrás del plato, sabe más. La emoción se convierte en recuerdo que dura décadas. Si te murieras mañana, no pedirías el mejor wagyu. Pedirías el caldito que te hacía tu mamá los domingos.</p>
+            </div>
+            <div class="reveal">
+                <p class="section-subtitle" style="margin-bottom: 1rem;">Atención</p>
+                <p class="body-text">La moneda más cara del siglo. 2 millones de personas nos dan la suya cada día sin saltarse ni uno. Más de lo que alcanza el noticiero de mayor audiencia del país en un día.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ PHOTO MOMENT — el calor que rompe el Apple ═══════════════ -->
+<div class="photo-moment reveal">
+    <img class="photo-moment__img" src="abrazo.jpg" alt="Aniol abrazando a una cocinera en un mercado mexicano" loading="lazy" width="960" height="720" style="object-position: 60% 30%;">
+    <div class="photo-moment__caption">Mercado · México</div>
+</div>
+
+<!-- ═══════════════ BRIDGE ═══════════════ -->
+<div class="divider"></div>
+<div class="bridge reveal"><p class="bridge__text">Tenemos la atención. Ahora, las pruebas.</p></div>
+<div class="divider"></div>
+
+<!-- ═══════════════ 5. AUDIENCIA — movida aquí (datos antes que sistema) ═══════════════ -->
+<section>
+    <div class="container">
+        <p class="label reveal" style="margin-bottom: 2rem;">La audiencia</p>
+        <h2 class="section-title reveal" style="margin-bottom: clamp(4rem, 8vh, 6rem);">No es una cuenta. Es una comunidad.</h2>
+
+        <div class="data-row reveal">
+            <div class="data-cell">
+                <p class="label">Instagram</p>
+                <p class="number-medium" data-counter="720000" data-format="commas">0</p>
+            </div>
+            <div class="data-cell">
+                <p class="label">Facebook</p>
+                <p class="number-medium" data-counter="670000" data-format="commas">0</p>
+            </div>
+            <div class="data-cell">
+                <p class="label">TikTok</p>
+                <p class="number-medium" data-counter="620000" data-format="commas">0</p>
+            </div>
+            <div class="data-cell">
+                <p class="label">YouTube</p>
+                <p class="number-medium" data-counter="90000" data-format="commas">0</p>
+            </div>
+        </div>
+        <p class="reveal" style="text-align: center; margin-top: 2.5rem; font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 600; letter-spacing: -0.02em;">Total: <span data-counter="2100000" data-format="commas">0</span></p>
+
+        <!-- Engagement + Views -->
+        <div class="data-row reveal" style="margin-top: 2rem;">
+            <div class="data-cell" style="grid-column: span 2; text-align: center;">
+                <p class="label">Engagement Rate Reels</p>
+                <p class="number-medium" style="color: var(--text);">10.7%</p>
+                <p style="font-size: 12px; color: var(--text-tertiary); margin-top: 0.5rem;">5x el estándar del sector</p>
+            </div>
+            <div class="data-cell" style="grid-column: span 2; text-align: center;">
+                <p class="label">Views promedio por post</p>
+                <p class="number-medium" data-counter="288791" data-format="commas">0</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ 6. LAS HISTORIAS — 1 destacada + 3 comprimidas ═══════════════ -->
+<section>
+    <div class="container">
+        <p class="label reveal" style="margin-bottom: 2rem;">48 guiones filmados</p>
+        <h2 class="section-title reveal" style="margin-bottom: clamp(4rem, 8vh, 6rem); max-width: 22ch;">Las historias no son teoría. Están grabadas.</h2>
+
+        <!-- FEATURED: Araceli — pattern break, layout diferente -->
+        <div class="story-featured reveal">
+            <img class="story-featured__photo" src="dona-comal.jpg" alt="Doña cocinando en su comal" loading="lazy" width="960" height="540">
+            <div class="story-featured__number">01</div>
+            <h3 class="story-featured__name">Araceli</h3>
+            <p class="story-featured__location">Mercado Zaragoza · Puebla</p>
+            <p class="story-featured__text">
+                Huele a maíz recién molido y a manteca caliente a las tres de la mañana. Araceli se levanta a esa hora cada día a moler el maíz en el molino. Un machete cuesta 90 pesos. Ella no sabe cuánto gana. Trabaja todos los días del año menos el 25 de cada mes. Y cuando alguien le dice "gracias" con la mirada, ese instante vale más que cualquier estrella Michelin.
+            </p>
+            <p class="story-featured__stat">1 millón+ de views · El video más compartido del canal</p>
+            <button class="video-toggle summary" onclick="openVideo('https://drive.google.com/file/d/141Jo13Y6IdcMQ-AegLhif3JrGRQLtsee/preview')">Ver historia ▶</button>
+        </div>
+
+        <!-- COMPRESSED: 3 historias en lista -->
+        <div class="story-list reveal">
+            <div class="story-compact">
+                <span class="story-compact__number">02</span>
+                <div>
+                    <p class="story-compact__name">Los Kumiai · Valle de Guadalupe</p>
+                    <p class="story-compact__detail">Quedan dos personas en el planeta que hablan su lengua. Cocinan sobre piedra volcánica con ingredientes que no tienen nombre en español.</p>
+                    <button class="video-toggle summary" onclick="openVideo('https://drive.google.com/file/d/16PQll0Ocob9UeHgDSA_gOnzXp1p5vAm0/preview')">Ver historia ▶</button>
+                </div>
+            </div>
+            <div class="story-compact">
+                <span class="story-compact__number">03</span>
+                <div>
+                    <p class="story-compact__name">Doña Esthela · Valle de Guadalupe</p>
+                    <p class="story-compact__detail">Lavaba ropa ajena. Hoy tiene un Bib Gourmand. Su carne asada huele a leña y a madrugada en el desierto.</p>
+                    <button class="video-toggle summary" onclick="openVideo('https://drive.google.com/file/d/1XNSWJA7MM6BPMepeyh8jcX04B6GFBLjv/preview')">Ver historia ▶</button>
+                </div>
+            </div>
+            <div class="story-compact">
+                <span class="story-compact__number">04</span>
+                <div>
+                    <p class="story-compact__name">Doña Humo · Sonora</p>
+                    <p class="story-compact__detail">Madre soltera. Burritos de machaca que saben a desierto y a resistencia. El contenido más memorable del archivo.</p>
+                    <button class="video-toggle summary" onclick="openVideo('https://drive.google.com/file/d/19NiME9oaEYngkx-xq7eIL4Dkcup78_8x/preview')">Ver historia ▶</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════ MICRO-CTA al ~50% del scroll ═══════════════ -->
+<div class="divider"></div>
+<div class="micro-cta reveal">
+    <div class="container">
+        <p class="micro-cta__text">Si esto ya resuena, no hace falta seguir bajando.</p>
+        <a class="micro-cta__link" href="mailto:tacotios@gmail.com?subject=La%20Vuelta%20a%20M%C3%A9xico%20%E2%80%94%20Me%20interesa">Hablemos</a>
+    </div>
+</div>
+<div class="divider"></div>
+
+<!-- ═══════════════ PHOTO MOMENT 2 — Aniol en acción ═══════════════ -->
+<div class="photo-moment reveal">
+    <img class="photo-moment__img" src="aniol-comal.jpg" alt="Aniol cocinando en un comal con fuego" loading="lazy" width="960" height="720" style="object-position: center 70%;">
+    <div class="photo-moment__caption">De campo · Grabación</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ 7. EL SISTEMA ═══════════════ -->
+<section>
+    <div class="container">
+        <p class="label reveal" style="margin-bottom: 2rem;">El sistema</p>
+        <h2 class="section-title reveal" style="margin-bottom: clamp(4rem, 8vh, 6rem); max-width: 22ch;">Tres escalones. Un solo momento.</h2>
+
+        <div class="steps">
+            <div class="step reveal">
+                <div class="step__number">I</div>
+                <div>
+                    <p class="step__title">Guía de Restaurantes Españoles</p>
+                    <p class="step__role">El imán</p>
+                    <p class="step__desc">México me enseñó el verdadero significado de "mi casa es tu casa". Es hora de regalarles la guía de restaurantes de mi gente en su casa adoptiva. Cada restaurante recibe una receta escrita a mano que me regaló mi abuela antes de morir, para enmarcarla en su restaurante y que los comensales puedan probarla.</p>
+                    <a href="https://guia-espanoles.vercel.app" target="_blank" rel="noopener" style="display: inline-block; margin-top: 1.25rem; font-size: 15px; font-weight: 400; color: var(--link); text-decoration: none; transition: opacity 200ms var(--ease);">Ver proyecto →</a>
+                </div>
+            </div>
+            <div class="step reveal">
+                <div class="step__number">II</div>
+                <div>
+                    <p class="step__title">La Selección del Taco</p>
+                    <p class="step__role">El juego</p>
+                    <p class="step__desc">16 taquerías compiten en formato Mundial. El orgullo regional mexicano como motor de viralidad. La audiencia no mira el torneo — juega el torneo.</p>
+                    <a href="https://la-seleccion-del-taco.vercel.app" target="_blank" rel="noopener" style="display: inline-block; margin-top: 1.25rem; font-size: 15px; font-weight: 400; color: var(--link); text-decoration: none; transition: opacity 200ms var(--ease);">Ver proyecto →</a>
+                </div>
+            </div>
+            <div class="step reveal">
+                <div class="step__number">III</div>
+                <div>
+                    <p class="step__title">La Vuelta a México en 80 Tacos</p>
+                    <p class="step__role">La religión</p>
+                    <p class="step__desc">Serie documental de formato largo. Profundidad Anthony Bourdain. 80 historias que le contaré a mis nietos, recorriendo un país que no cabe en un reel de 30 segundos.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ 8. LA VENTANA — pattern break (bg-alt) ═══════════════ -->
+<section class="counter-section section--alt">
+    <div class="container">
+        <p class="label reveal">La ventana</p>
+        <div class="number-xl reveal" data-counter="64" data-format="plain" style="margin: 1rem 0;">0</div>
+        <p class="label reveal" style="margin-bottom: 2rem;">días</p>
+        <p class="body-text reveal">La gran final de La Selección del Taco coincide con el pitido inicial del Mundial FIFA 2026 en México. 11 de junio.</p>
+        <p class="body-text reveal" style="margin-top: 1.5rem; color: var(--text); font-weight: 500;">La próxima vez que el mundo entero mire a México así no está en el calendario.</p>
+    </div>
+</section>
+
+<!-- ═══════════════ BRIDGE ═══════════════ -->
+<div class="divider"></div>
+<div class="bridge reveal"><p class="bridge__text">Y para cruzar esa ventana, hace falta un equipo.</p></div>
+<div class="divider"></div>
+
+<!-- ═══════════════ 9. EL EQUIPO ═══════════════ -->
+<section>
+    <div class="container">
+        <p class="label reveal" style="margin-bottom: 2rem;">El equipo</p>
+        <p class="quote reveal" style="margin-bottom: clamp(4rem, 8vh, 6rem); max-width: 34ch;">"Llevo 60 documentales y nunca vi a alguien que hiciera esto con comida."</p>
+        <p class="body-text reveal" style="margin-bottom: 3rem;">El productor ganador de Emmy vio tres reels. Llamó al día siguiente. No le pagamos por decirlo. Nos pidió entrar.</p>
+
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <span class="timeline-item__date">Dirección</span>
+                <span class="timeline-item__text">Aniol Güell — @tacotios · 2M+ seguidores</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Estrategia</span>
+                <span class="timeline-item__text">Héctor Mijangos — dirección estratégica</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Management</span>
+                <span class="timeline-item__text">PAOCME Agencia — gestión de marca y brand deals</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Producción</span>
+                <span class="timeline-item__text">Productor ganador de Emmy · 60+ documentales · productor Tijuana</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Grabación</span>
+                <span class="timeline-item__text">2 camarógrafos, sonido, iluminación · formato horizontal</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Postproducción</span>
+                <span class="timeline-item__text">2 editores · asistente de producción</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Tecnología</span>
+                <span class="timeline-item__text">Desarrolladores IA — algoritmo de recomendación gastronómica</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Autoridad</span>
+                <span class="timeline-item__text">Gloria López Morales — la mujer que consiguió el Patrimonio UNESCO</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ 10. CALENDARIO ═══════════════ -->
+<section>
+    <div class="container">
+        <p class="label reveal" style="margin-bottom: 2rem;">Calendario</p>
+        <h2 class="section-title reveal" style="margin-bottom: clamp(4rem, 8vh, 6rem);">Todo está en marcha.</h2>
+
+        <div class="timeline reveal">
+            <div class="timeline-item">
+                <span class="timeline-item__date">Abril 14</span>
+                <span class="timeline-item__text">Grabación Guía Española — primeros episodios</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Mayo 1</span>
+                <span class="timeline-item__text">Empieza grabación La Selección del Taco</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date">Mayo 15</span>
+                <span class="timeline-item__text">Primer episodio al aire</span>
+            </div>
+            <div class="timeline-item">
+                <span class="timeline-item__date" style="color: var(--text); font-weight: 600;">Junio 11</span>
+                <span class="timeline-item__text" style="font-weight: 600;">Gran final — coincide con el pitido inicial del Mundial FIFA 2026</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════ 11. FINALE — Video + CTA ═══════════════ -->
+<section class="finale">
+    <div class="container">
+        <p class="label reveal" style="margin-bottom: 2rem;">México Mágico — La historia de Aniol</p>
+        <iframe class="finale__video reveal" src="https://drive.google.com/file/d/1uI0GPAKezLE2xlZW8JVDyeM8CSTB3s3Y/preview" allow="autoplay" allowfullscreen loading="lazy"></iframe>
+        <h2 class="finale__cta reveal">¿Vamos por tacos?</h2>
+        <p class="finale__sub reveal">Tengo hambre.</p>
+    </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+    <div class="container">
+        <p>La Vuelta a México en 80 Tacos · 2026</p>
+    </div>
+</footer>
+
+<!-- ═══════════════ VIDEO MODAL ═══════════════ -->
+<div class="video-modal" id="videoModal" onclick="closeVideo(event)">
+    <button class="video-modal__close">Cerrar</button>
+    <iframe class="video-modal__frame" id="videoFrame" src="" allow="autoplay" allowfullscreen></iframe>
+</div>
+
+<!-- ═══════════════ JS ═══════════════ -->
+<script>
+// Hero video fade-in
+const heroVideo = document.getElementById('heroVideo');
+if (heroVideo) {
+    heroVideo.addEventListener('canplaythrough', () => {
+        heroVideo.classList.add('is-loaded');
+    }, { once: true });
+    // Fallback if already loaded
+    if (heroVideo.readyState >= 4) heroVideo.classList.add('is-loaded');
+}
+
+// Reveal on scroll
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Counter animation
+function animateCounter(el) {
+    const target = parseInt(el.dataset.counter);
+    const format = el.dataset.format;
+    const duration = 2000;
+    const start = performance.now();
+
+    function update(now) {
+        const elapsed = now - start;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 4);
+        const current = Math.round(target * eased);
+
+        if (format === 'commas') {
+            el.textContent = current.toLocaleString('es-MX');
+        } else {
+            el.textContent = current;
+        }
+
+        if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            counterObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.5 });
+
+document.querySelectorAll('[data-counter]').forEach(el => counterObserver.observe(el));
+
+// Video modal
+function openVideo(src) {
+    const modal = document.getElementById('videoModal');
+    const frame = document.getElementById('videoFrame');
+    frame.src = src;
+    modal.classList.add('is-open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeVideo(e) {
+    if (e.target === e.currentTarget || e.target.classList.contains('video-modal__close')) {
+        const modal = document.getElementById('videoModal');
+        const frame = document.getElementById('videoFrame');
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+        setTimeout(() => { frame.src = ''; }, 300);
+    }
+}
+</script>
+
+</body>
+</html>
